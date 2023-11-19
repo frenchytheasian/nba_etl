@@ -5,8 +5,23 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
 jobs:
   tf_fmt:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_OIDC_ROLE_ARN }}
+          role-session-name: github-actions
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+      - name: Test AWS Connection
+        run: aws sts get-caller-identity
+
+      
