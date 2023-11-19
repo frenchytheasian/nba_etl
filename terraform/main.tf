@@ -10,6 +10,14 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
+
+  default_tags {
+    tags = {
+      Owner      = "Michael French"
+      Project    = "NBA ETL"
+      Repository = "https://github.com/frenchytheasian/nba_etl"
+    }
+  }
 }
 
 
