@@ -198,3 +198,4 @@ override.tf.json
 terraform.rc
 
 terraform/builds
+*/src_zip.zip
