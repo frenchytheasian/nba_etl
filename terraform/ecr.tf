@@ -19,7 +19,7 @@ resource "null_resource" "build_lambda_image" {
 
   provisioner "local-exec" {
     command = <<EOF
-            aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazon.com
+            aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ..
             docker build -t ${aws_ecr_repository.nba_etl.repository_url}:latest .
             docker push ${aws_ecr_repository.nba_etl.repository_url}:latest
